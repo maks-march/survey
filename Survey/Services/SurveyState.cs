@@ -8,5 +8,8 @@ namespace Survey.Services
     {
         public string? CatOwnership { get; set; }
         public int? CatsCount { get; set; }
+        public string? CatName { get; set; }
+        public string? CatBreed { get; set; }
+        public int CatAge { get; internal set; }
     }
 }

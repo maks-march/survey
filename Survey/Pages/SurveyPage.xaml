@@ -23,57 +23,72 @@
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnTappedCatOption" />
                     </Border.GestureRecognizers>
-                    <HorizontalStackLayout Spacing="12" Style="{StaticResource BlockRow}">
+
+                    <FlexLayout 
+                        Direction="Row" 
+                        AlignItems="Center" Style="{StaticResource BlockRow}">
                         <Image Source="cat_icon.png" Style="{StaticResource Icon}"/>
-                        <Label Text="Да у меня есть кот." Style="{StaticResource Queston}" />
+                        <Label Text="Да у меня есть кот." 
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
                         <RadioButton
                              x:Name="YesOption"
                              GroupName="catOptions"
+                             InputTransparent="True"
                              CheckedChanged="OnCatOptionChanged" />
-                    </HorizontalStackLayout>
+                    </FlexLayout>
                 </Border>
                 <Border Style="{StaticResource Frame}"
                         x:Name="PlaningBorder">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnTappedCatOption" />
                     </Border.GestureRecognizers>
-                    <HorizontalStackLayout 
-                        Spacing="12" 
-                        Style="{StaticResource BlockRow}"
-                        >
+
+                    <FlexLayout 
+                        Direction="Row" 
+                        AlignItems="Center" Style="{StaticResource BlockRow}">
                         <Image Source="house.png" Style="{StaticResource Icon}"/>
-                        <Label Text="Планирую завести котика!" Style="{StaticResource Queston}" />
+                        <Label Text="Планирую завести котика!" 
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
                         <RadioButton
                              x:Name="PlaningOption"
                              GroupName="catOptions"
+                             InputTransparent="True"
                              CheckedChanged="OnCatOptionChanged" 
                             />
-                    </HorizontalStackLayout>
+                    </FlexLayout>
                 </Border>
                 <Border Style="{StaticResource Frame}"
                         x:Name="LoveBorder">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnTappedCatOption" />
                     </Border.GestureRecognizers>
-                    <HorizontalStackLayout Spacing="12" Style="{StaticResource BlockRow}">
+                    <FlexLayout 
+                        Direction="Row" 
+                        AlignItems="Center" Style="{StaticResource BlockRow}">
                         <Image Source="heart.png" Style="{StaticResource Icon}"/>
-                        <Label Text="Просто люблю котов!" Style="{StaticResource Queston}" />
+                        <Label Text="Просто люблю котов!" 
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
                         <RadioButton
                              x:Name="LoveOption"
                              GroupName="catOptions"
+                             InputTransparent="True"
                              CheckedChanged="OnCatOptionChanged" />
-                    </HorizontalStackLayout>
+                    </FlexLayout>
                 </Border>
             </VerticalStackLayout>
-                    <!--#endregion RadioButton -->
+            <!--#endregion RadioButton -->
 
+            <!--#region Stepper -->
             <VerticalStackLayout>
                 <Label x:Name="HintLabel" 
                        Style="{StaticResource Queston}" 
                        Text="Сначала выбери вариант выше!"/>
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
-                    Spacing="25">                    
+                    Spacing="25">
                     <Label x:Name="Count" 
                            Text="{Binding Source={x:Reference CatStepper}, Path=Value}"
                            Style="{StaticResource Title}"/>
@@ -85,10 +100,48 @@
                              ValueChanged="OnStepperValueChanged"
                              HorizontalOptions="Center" />
                 </HorizontalStackLayout>
-                <Label FontSize="16" 
-                       Style="{StaticResource SubTitle}" 
+                <Label Style="{StaticResource SubTitle}" 
+                       FontSize="12" 
                        Text="Если котиков много, дальше расскажите о самом любимом!"/>
-            
+
+            </VerticalStackLayout>
+            <!--#endregion Stepper -->
+
+
+            <VerticalStackLayout>
+                <Label Text="Познакомимся с любимчиком :3" Style="{ StaticResource Title}"/>
+                <Label Text="Кто же он такой?" 
+                    Style="{ StaticResource SubTitle}" Margin="0,10" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Итак, его имя" Style="{StaticResource Queston}"/>
+                <Border Style="{StaticResource EntryFrame}">
+                    <Entry Placeholder="Шлёпа?"
+                           TextChanged="OnCatNameChanged" />
+                </Border>
+                <Label Text="И порода" Style="{StaticResource Queston}"/>
+
+                <Border Style="{StaticResource EntryFrame}">
+                    <Picker x:Name="CatPicker"
+                        Title="Дворовый"
+                        SelectedIndexChanged="OnBreedChanged">      
+                        <Picker.Items>
+                            <x:String>Персидский</x:String>
+                            <x:String>Британский</x:String>
+                            <x:String>Мейн-кун</x:String>
+                            <x:String>Сфинкс</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Border>
+                
+                <Label Text="Сколько ему месяцев?" Style="{StaticResource Queston}"/>
+                <Border Style="{StaticResource EntryFrame}">
+                    <Entry Placeholder="6-7?"
+                           TextChanged="OnCatAgeChanged"
+                           Keyboard="Numeric"/>
+                </Border>
+
             </VerticalStackLayout>
             
             <Grid

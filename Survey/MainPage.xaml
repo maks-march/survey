@@ -6,26 +6,28 @@
              Shell.NavBarIsVisible="False">
 
     <!-- Для удобства использовались собственные статичные ресурсы стилей -->
-    <VerticalStackLayout>
-        <HorizontalStackLayout Style="{StaticResource Header }">
-            <Image Source="cat_icon.png" Style="{ StaticResource Icon}"/>
-            <Label Text="Мелки лапки" Style="{ StaticResource Heading }" />
-        </HorizontalStackLayout>
-        <Border Style="{ StaticResource PhotoBorder}">
-            <Image Source="photo.png" Aspect="Fill"/>
-        </Border>
-        <VerticalStackLayout
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout Style="{StaticResource Header }">
+                <Image Source="cat_icon.png" Style="{ StaticResource Icon}"/>
+                <Label Text="Мелки лапки" Style="{ StaticResource Heading }" />
+            </HorizontalStackLayout>
+            <Border Style="{ StaticResource PhotoBorder}">
+                <Image Source="photo.png" Aspect="Fill"/>
+            </Border>
+            <VerticalStackLayout
             Spacing="5">
-            <Label Text="У каждого кошачьего есть история." Style="{ StaticResource Title}"/>
-            <Label Text="Поделись своей!" Style="{ StaticResource Title}" />
-            <Label Text="Несколько небольших вопросов, которые помогут нам лучше узнать вашу кошку и понять, какой уход сделает её счастливой." 
+                <Label Text="У каждого кошачьего есть история." Style="{ StaticResource Title}"/>
+                <Label Text="Поделись своей!" Style="{ StaticResource Title}" />
+                <Label Text="Несколько небольших вопросов, которые помогут нам лучше узнать вашу кошку и понять, какой уход сделает её счастливой." 
                 Style="{ StaticResource SubTitle}" Margin="0,10" />
-        </VerticalStackLayout>
-        <Grid Style="{StaticResource Footer }">
-            <Button Style="{ StaticResource PrimaryButton }" 
+            </VerticalStackLayout>
+            <Grid Style="{StaticResource Footer }">
+                <Button Style="{ StaticResource PrimaryButton }" 
                     Text="Давай начнем!"
                     Clicked="GoToSurvey"></Button>
-        </Grid>
-    </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

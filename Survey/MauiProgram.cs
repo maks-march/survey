@@ -26,6 +26,18 @@ namespace Survey
             Routing.RegisterRoute(PagesNames.SurveyPage.ToString(), typeof(SurveyPage));
             Routing.RegisterRoute(PagesNames.ResultsPage.ToString(), typeof(ResultsPage));
             Routing.RegisterRoute(PagesNames.MainPage.ToString(), typeof(MainPage));
+
+#if ANDROID
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+            });
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+            });
+#endif
+
             return builder.Build();
         }
     }
