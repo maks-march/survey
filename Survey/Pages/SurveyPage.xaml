@@ -107,6 +107,7 @@
             </VerticalStackLayout>
             <!--#endregion Stepper -->
 
+            <!--#region Entries -->
 
             <VerticalStackLayout>
                 <Label Text="Познакомимся с любимчиком :3" Style="{ StaticResource Title}"/>
@@ -118,14 +119,15 @@
                 <Label Text="Итак, его имя" Style="{StaticResource Queston}"/>
                 <Border Style="{StaticResource EntryFrame}">
                     <Entry Placeholder="Шлёпа?"
-                           TextChanged="OnCatNameChanged" />
+                           TextChanged="OnCatNameChanged"
+                           x:Name="NameEntry"/>
                 </Border>
                 <Label Text="И порода" Style="{StaticResource Queston}"/>
 
                 <Border Style="{StaticResource EntryFrame}">
                     <Picker x:Name="CatPicker"
                         Title="Дворовый"
-                        SelectedIndexChanged="OnBreedChanged">      
+                        SelectedIndexChanged="OnBreedChanged">
                         <Picker.Items>
                             <x:String>Персидский</x:String>
                             <x:String>Британский</x:String>
@@ -134,7 +136,7 @@
                         </Picker.Items>
                     </Picker>
                 </Border>
-                
+
                 <Label Text="Сколько ему месяцев?" Style="{StaticResource Queston}"/>
                 <Border Style="{StaticResource EntryFrame}">
                     <Entry Placeholder="6-7?"
@@ -143,6 +145,105 @@
                 </Border>
 
             </VerticalStackLayout>
+
+            <!--#endregion Entries -->
+
+            <!--#region Checkbox -->
+            
+            <VerticalStackLayout Spacing="10">
+                <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Обычно {0}...'}" 
+                       Style="{ StaticResource Queston}"/>
+                <Border x:Name="PlayfulBorder"
+                        Style="{StaticResource EntryFrame}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                Tapped="OnTappedChecked"
+                                CommandParameter="{x:Reference PlayfulBox}" />
+                    </Border.GestureRecognizers>
+                    <FlexLayout Direction="Row" 
+                                AlignItems="Center"
+                                Style="{StaticResource BlockRow}">
+                        <Image Source="house.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Игривый исследователь"
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
+                        <CheckBox x:Name="PlayfulBox" 
+                                  Color="#B8573C" 
+                                  InputTransparent="True"
+                                  CheckedChanged="OnCheckedChanged" />
+                    </FlexLayout>
+                </Border>
+                <Border x:Name="CuteBorder"
+                        Style="{StaticResource EntryFrame}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                Tapped="OnTappedChecked"
+                                CommandParameter="{x:Reference CuteBox}" />
+                    </Border.GestureRecognizers>
+                    <FlexLayout Direction="Row" 
+                                AlignItems="Center"
+                                Style="{StaticResource BlockRow}">
+                        <Image Source="heart.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Милый спутник"
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
+                        <CheckBox x:Name="CuteBox" 
+                                  Color="#B8573C" 
+                                  InputTransparent="True"
+                                  CheckedChanged="OnCheckedChanged" />
+                    </FlexLayout>
+                </Border>
+                <Border x:Name="FreeBorder"
+                        Style="{StaticResource EntryFrame}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                Tapped="OnTappedChecked"
+                                CommandParameter="{x:Reference FreeBox}" />
+                    </Border.GestureRecognizers>
+                    <FlexLayout Direction="Row" 
+                                AlignItems="Center"
+                                Style="{StaticResource BlockRow}">
+                        <Image Source="sparks.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Несгибаемый дух"
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
+                        <CheckBox x:Name="FreeBox" 
+                                  Color="#B8573C" 
+                                  InputTransparent="True"
+                                  CheckedChanged="OnCheckedChanged" />
+                    </FlexLayout>
+                </Border>
+                <Border x:Name="ShyBorder"
+                        Style="{StaticResource EntryFrame}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                Tapped="OnTappedChecked"
+                                CommandParameter="{x:Reference ShyBox}" />
+                    </Border.GestureRecognizers>
+                    <FlexLayout Direction="Row" 
+                                AlignItems="Center"
+                                Style="{StaticResource BlockRow}">
+                        <Image Source="house.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Робкая душа"
+                               Style="{StaticResource Queston}"
+                               FlexLayout.Grow="1" />
+                        <CheckBox x:Name="ShyBox" 
+                                  Color="#B8573C" 
+                                  InputTransparent="True"
+                                  CheckedChanged="OnCheckedChanged" />
+                    </FlexLayout>
+                </Border>
+            </VerticalStackLayout>
+            
+            <!--#endregion Checkbox -->
             
             <Grid
                 Style="{StaticResource Footer }"
