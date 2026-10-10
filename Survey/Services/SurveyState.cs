@@ -13,5 +13,7 @@ namespace Survey.Services
         public int CatMass { get; internal set; }
         public List<string> CatTraits { get; internal set; } = new();
         public bool CatHealthy { get; internal set; }
+        public DateTime CatDate { get; internal set; }
+        public string CatInfo { get; internal set; }
     }
 }

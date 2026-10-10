@@ -102,4 +102,14 @@ public partial class SurveyPage : ContentPage
     {
         _state.CatHealthy = e.Value;
     }
+
+    private void OnReceivedDateSelected(object sender, DateChangedEventArgs e)
+    {
+        _state.CatDate = e.NewDate ?? DateTime.Today;
+    }
+
+    private void OnNotesChanged(object sender, TextChangedEventArgs e)
+    {
+        _state.CatInfo = e.NewTextValue;
+    }
 }

@@ -145,6 +145,13 @@
                            Keyboard="Numeric"/>
                 </Border>
 
+                <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Когда {0} появился у вас?'}" Style="{StaticResource Queston}"/>
+                <Border Style="{StaticResource EntryFrame}">
+                    <DatePicker x:Name="ReceivedDatePicker"
+                                Format="dd MMMM yyyy"
+                                DateSelected="OnReceivedDateSelected" />
+                </Border>
+
             </VerticalStackLayout>
 
             <!--#endregion Entries -->
@@ -269,11 +276,30 @@
             </VerticalStackLayout>
 
             <!--#endregion Switch -->
-            
 
+            <!--#region Entry-->
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Что ещё хотите рассказать?" Style="{StaticResource Queston}"/>
+                <Border Style="{StaticResource EntryFrame}" 
+                    Padding="16,12">
+                    <Editor x:Name="NotesEditor"
+                        Placeholder="Любимая игрушка, привычки, что-то смешное..."
+                        PlaceholderColor="#8A8178"
+                        TextColor="#2B2B2B"
+                        FontFamily="InterRegular"
+                        BackgroundColor="Transparent"
+                        HeightRequest="120"
+                        AutoSize="TextChanges"
+                        TextChanged="OnNotesChanged" />
+                </Border>
+            </VerticalStackLayout>
+            
+            <!--#endregion Entry-->
+            
             <Grid
                 Style="{StaticResource Footer }"
-                ColumnDefinitions="2*,3*"
+                ColumnDefinitions="2.5*,3*"
                 ColumnSpacing="10">
                 <Button Style="{ StaticResource SecondaryButton }" 
                     Text="Заново"

@@ -36,6 +36,14 @@ namespace Survey
             {
                 handler.PlatformView.Background = null;
             });
+            Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+            });
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("RemoveUnderline", (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+            });
 #endif
 
             return builder.Build();
