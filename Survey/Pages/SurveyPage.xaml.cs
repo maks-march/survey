@@ -86,6 +86,7 @@ public partial class SurveyPage : ContentPage
 
     private async void GoToMain(object sender, EventArgs e)
     {
+        _state.Reset();
         PagesNavigation.GoToAsync(PagesNames.MainPage);
     }
 

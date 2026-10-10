@@ -4,12 +4,27 @@
              x:Class="Survey.Pages.ResultsPage"
              BackgroundColor="{ StaticResource MainBackground }"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <ScrollView Orientation="Vertical">
+        <VerticalStackLayout>
+            <HorizontalStackLayout Style="{StaticResource Header}">
+                <Image Source="cat_icon.png" Style="{StaticResource Icon}"/>
+                <Label Text="Мелки лапки" Style="{StaticResource Heading}" />
+            </HorizontalStackLayout>
 
-        <Grid Style="{StaticResource Footer }">
-            <Button Style="{ StaticResource PrimaryButton }" 
-                    Text="Начать сначала"
-                    Clicked="GoToMain"></Button>
-        </Grid>
-    </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Ваш котик" Style="{StaticResource Title}"/>
+                <Label x:Name="SummaryLabel" Style="{StaticResource SubTitle}" Margin="0,10" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource EntryFrame}">
+                <VerticalStackLayout x:Name="RowsStack" Spacing="14" />
+            </Border>
+
+            <Grid Style="{StaticResource Footer}">
+                <Button Style="{StaticResource PrimaryButton}"
+                        Text="Начать сначала"
+                        Clicked="GoToMain" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
