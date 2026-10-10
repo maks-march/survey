@@ -4,7 +4,7 @@
              x:Class="Survey.Pages.SurveyPage"
              BackgroundColor="{ StaticResource MainBackground }"
              Shell.NavBarIsVisible="False">
-    <ScrollView Orientation="Vertical">
+    <ScrollView x:Name="FormScroll" Orientation="Vertical">
         <VerticalStackLayout>
             <HorizontalStackLayout Style="{StaticResource Header }">
                 <Image Source="cat_icon.png" Style="{ StaticResource Icon}"/>
@@ -17,7 +17,10 @@
             </VerticalStackLayout>
             <!--#region RadioButton -->
             <VerticalStackLayout Spacing="10">
-                <Label Text="Есть ли у вас кот?" Style="{StaticResource Queston}"/>
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="Есть ли у вас кот?" Style="{StaticResource Queston}"/>
+                    <Label Text="*" Style="{StaticResource RequiredMark}"/>
+                </HorizontalStackLayout>
                 <Border Style="{StaticResource Frame}"
                         x:Name="YesBorder">
                     <Border.GestureRecognizers>
@@ -116,15 +119,21 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="10">
-                <Label Text="Итак, его имя" Style="{StaticResource Queston}"/>
-                <Border Style="{StaticResource EntryFrame}">
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="Итак, его имя" Style="{StaticResource Queston}"/>
+                    <Label Text="*" Style="{StaticResource RequiredMark}"/>
+                </HorizontalStackLayout>
+                <Border x:Name="NameBorder" Style="{StaticResource EntryFrame}">
                     <Entry Placeholder="Шлёпа?"
                            TextChanged="OnCatNameChanged"
                            x:Name="NameEntry"/>
                 </Border>
-                <Label Text="И порода" Style="{StaticResource Queston}"/>
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="И порода" Style="{StaticResource Queston}"/>
+                    <Label Text="*" Style="{StaticResource RequiredMark}"/>
+                </HorizontalStackLayout>
 
-                <Border Style="{StaticResource EntryFrame}">
+                <Border x:Name="BreedBorder" Style="{StaticResource EntryFrame}">
                     <Picker x:Name="CatPicker"
                         Title="Дворовый"
                         SelectedIndexChanged="OnBreedChanged">
@@ -137,12 +146,13 @@
                     </Picker>
                 </Border>
 
-                <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Сколько весит {0}?'}" 
-                       Style="{StaticResource Queston}"/>
-                <Border Style="{StaticResource EntryFrame}">
-                    <Entry Placeholder="6-7?"
-                           TextChanged="OnCatAgeChanged"
-                           Keyboard="Numeric"/>
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Сколько весит {0}?'}"
+                           Style="{StaticResource Queston}"/>
+                    <Label x:Name="WeightStar" Text="*" Style="{StaticResource RequiredMark}"/>
+                </HorizontalStackLayout>
+                <Border x:Name="WeightBorder" Style="{StaticResource EntryFrame}">
+                    <Entry x:Name="WeightEntry" Placeholder="6-7?" TextChanged="OnCatAgeChanged" Keyboard="Numeric"/>
                 </Border>
 
                 <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Когда {0} появился у вас?'}" Style="{StaticResource Queston}"/>
@@ -255,10 +265,11 @@
 
             <!--#region Switch -->
             <VerticalStackLayout>
-                <Label Text="Здоровье" 
-                   Style="{StaticResource Queston}"
-                   Margin="0,0,0,10"/>
-                <Border Style="{StaticResource EntryFrame}">
+                <HorizontalStackLayout Spacing="4" Margin="0,0,0,10">
+                    <Label Text="Здоровье" Style="{StaticResource Queston}"/>
+                    <Label x:Name="VetStar" Text="*" Style="{StaticResource RequiredMark}"/>
+                </HorizontalStackLayout>
+                <Border x:Name="VetBorder" Style="{StaticResource EntryFrame}">
                     <Grid 
                     ColumnDefinitions="4*,1*"
                     Padding="15">
@@ -297,6 +308,13 @@
             
             <!--#endregion Entry-->
             
+            <Label x:Name="ErrorLabel"
+                   Text="Заполните отмеченные поля"
+                   TextColor="#D32F2F"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   IsVisible="False" />
+
             <Grid
                 Style="{StaticResource Footer }"
                 ColumnDefinitions="2.5*,3*"

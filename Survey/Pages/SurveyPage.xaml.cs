@@ -8,9 +8,15 @@ public partial class SurveyPage : ContentPage
 {
     public static Color SelectedStroke = Color.FromArgb("#B8573C");
     public static Color DefaultStroke = Color.FromArgb("#E7E0D7");
-    private SurveyState _state; 
+    private static readonly Color FieldStroke = Color.FromArgb("#B8573C");
+    private static readonly Color ErrorStroke = Color.FromArgb("#D32F2F");
+
+    private SurveyState _state;
     private readonly Dictionary<Border, (RadioButton Radio, string Ownership, string Hint)> _orderOptions;
     private readonly Dictionary<CheckBox, string> _checkOptions;
+
+    private bool _showErrors;   // подсвечивать ошибки только после первой попытки перейти дальше
+    private bool _vetTouched;   // переключатель ветеринарии считается заполненным, когда его трогали
 
     public SurveyPage(SurveyState state)
     {
@@ -29,21 +35,26 @@ public partial class SurveyPage : ContentPage
             [CuteBox] = "милый спутник",
             [ShyBox] = "робкая душа",
         };
+
+        UpdateOptionalFields();
     }
 
     private void OnBreedChanged(object sender, EventArgs e)
     {
         _state.CatBreed = (sender as Picker)?.SelectedItem as string;
+        Refresh();
     }
 
     private void OnCatNameChanged(object sender, TextChangedEventArgs e)
     {
         _state.CatName = e.NewTextValue;
+        Refresh();
     }
 
     private void OnCatAgeChanged(object sender, TextChangedEventArgs e)
     {
-        _state.CatMass = int.Parse(e.NewTextValue);
+        _state.CatMass = int.TryParse(e.NewTextValue, out var mass) ? mass : 0;
+        Refresh();
     }
 
     private void OnTappedCatOption(object sender, TappedEventArgs e)
@@ -63,12 +74,16 @@ public partial class SurveyPage : ContentPage
 
         _state.CatOwnership = option.Ownership;
         HintLabel.Text = option.Hint;
+
+        UpdateOptionalFields();
+        Refresh();
     }
 
     private void OnStepperValueChanged(object sender, EventArgs e)
     {
         _state.CatsCount = (int)((Stepper)sender).Value;
     }
+
     private async void GoToMain(object sender, EventArgs e)
     {
         PagesNavigation.GoToAsync(PagesNames.MainPage);
@@ -76,6 +91,15 @@ public partial class SurveyPage : ContentPage
 
     private async void GoToResults(object sender, EventArgs e)
     {
+        _showErrors = true;
+        var firstInvalid = ValidateForm();
+
+        if (firstInvalid is not null)
+        {
+            await FormScroll.ScrollToAsync(firstInvalid, ScrollToPosition.Center, true);
+            return;
+        }
+
         PagesNavigation.GoToAsync(PagesNames.ResultsPage);
     }
 
@@ -89,7 +113,7 @@ public partial class SurveyPage : ContentPage
 
     private void OnCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (!e.Value || sender is not CheckBox check) return;
+        if (sender is not CheckBox check) return;
         var trait = _checkOptions[check];
 
         if (e.Value)
@@ -100,7 +124,9 @@ public partial class SurveyPage : ContentPage
 
     private void OnVetToggled(object sender, ToggledEventArgs e)
     {
+        _vetTouched = true;
         _state.CatHealthy = e.Value;
+        Refresh();
     }
 
     private void OnReceivedDateSelected(object sender, DateChangedEventArgs e)
@@ -111,5 +137,54 @@ public partial class SurveyPage : ContentPage
     private void OnNotesChanged(object sender, TextChangedEventArgs e)
     {
         _state.CatInfo = e.NewTextValue;
+    }
+
+    // Если кот в планах, вес и ветеринария необязательны: звёздочки скрываются
+    private void UpdateOptionalFields()
+    {
+        bool isPlanned = PlaningOption.IsChecked || LoveOption.IsChecked;
+
+        WeightStar.IsVisible = !isPlanned;
+        VetStar.IsVisible = !isPlanned;
+    }
+
+    private void Refresh()
+    {
+        if (_showErrors)
+            ValidateForm();
+    }
+
+    // Возвращает первое незаполненное поле или null, если форма заполнена
+    private VisualElement? ValidateForm()
+    {
+        bool isPlanned = PlaningOption.IsChecked || LoveOption.IsChecked;
+
+        bool ownershipOk = _orderOptions.Values.Any(o => o.Radio.IsChecked);
+        bool nameOk = !string.IsNullOrWhiteSpace(NameEntry.Text);
+        bool breedOk = CatPicker.SelectedIndex >= 0;
+        bool weightOk = isPlanned || !string.IsNullOrWhiteSpace(WeightEntry.Text);
+        bool vetOk = isPlanned || _vetTouched;
+
+        foreach (var (border, option) in _orderOptions)
+        {
+            border.Stroke = !ownershipOk ? ErrorStroke
+                          : option.Radio.IsChecked ? SelectedStroke
+                          : DefaultStroke;
+        }
+
+        NameBorder.Stroke = nameOk ? FieldStroke : ErrorStroke;
+        BreedBorder.Stroke = breedOk ? FieldStroke : ErrorStroke;
+        WeightBorder.Stroke = weightOk ? FieldStroke : ErrorStroke;
+        VetBorder.Stroke = vetOk ? FieldStroke : ErrorStroke;
+
+        VisualElement? firstInvalid = null;
+        if (!ownershipOk) firstInvalid ??= YesBorder;
+        if (!nameOk) firstInvalid ??= NameBorder;
+        if (!breedOk) firstInvalid ??= BreedBorder;
+        if (!weightOk) firstInvalid ??= WeightBorder;
+        if (!vetOk) firstInvalid ??= VetBorder;
+
+        ErrorLabel.IsVisible = firstInvalid is not null;
+        return firstInvalid;
     }
 }
