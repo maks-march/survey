@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Survey.MainPage"
+             BackgroundColor="{ StaticResource MainBackground }"
+             Shell.NavBarIsVisible="False">
+
+    <!-- Для удобства использовались собственные статичные ресурсы стилей -->
+    <VerticalStackLayout>
+        <HorizontalStackLayout Style="{StaticResource Header }">
+            <Image Source="cat_icon.png" Style="{ StaticResource Icon}"/>
+            <Label Text="Мелки лапки" Style="{ StaticResource Heading }" />
+        </HorizontalStackLayout>
+        <Border Style="{ StaticResource PhotoBorder}">
+            <Image Source="photo.png" Aspect="Fill"/>
+        </Border>
+        <VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="У каждого кошачьего есть история." Style="{ StaticResource Title}"/>
+                <Label Text="Поделись своей!" Style="{ StaticResource Title}" />
+                <Label Text="Несколько небольших вопросов, которые помогут нам лучше узнать вашу кошку и понять, какой уход сделает её счастливой." 
+                    Style="{ StaticResource SubTitle}" />
+            </VerticalStackLayout>
+            <HorizontalStackLayout Style="{StaticResource Footer }">
+                <Button Style="{ StaticResource PrimaryButton }" Text="Давай начнем!"></Button>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+
+</ContentPage>
