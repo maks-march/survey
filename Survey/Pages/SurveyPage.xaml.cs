@@ -43,7 +43,7 @@ public partial class SurveyPage : ContentPage
 
     private void OnCatAgeChanged(object sender, TextChangedEventArgs e)
     {
-        _state.CatAge = int.Parse(e.NewTextValue);
+        _state.CatMass = int.Parse(e.NewTextValue);
     }
 
     private void OnTappedCatOption(object sender, TappedEventArgs e)
@@ -96,5 +96,10 @@ public partial class SurveyPage : ContentPage
             _state.CatTraits.Add(trait);
         else
             _state.CatTraits.Remove(trait);
+    }
+
+    private void OnVetToggled(object sender, ToggledEventArgs e)
+    {
+        _state.CatHealthy = e.Value;
     }
 }

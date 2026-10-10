@@ -10,7 +10,8 @@ namespace Survey.Services
         public int? CatsCount { get; set; }
         public string? CatName { get; set; }
         public string? CatBreed { get; set; }
-        public int CatAge { get; internal set; }
+        public int CatMass { get; internal set; }
         public List<string> CatTraits { get; internal set; } = new();
+        public bool CatHealthy { get; internal set; }
     }
 }

@@ -137,7 +137,8 @@
                     </Picker>
                 </Border>
 
-                <Label Text="Сколько ему месяцев?" Style="{StaticResource Queston}"/>
+                <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='Сколько весит {0}?'}" 
+                       Style="{StaticResource Queston}"/>
                 <Border Style="{StaticResource EntryFrame}">
                     <Entry Placeholder="6-7?"
                            TextChanged="OnCatAgeChanged"
@@ -244,7 +245,32 @@
             </VerticalStackLayout>
             
             <!--#endregion Checkbox -->
+
+            <!--#region Switch -->
+            <VerticalStackLayout>
+                <Label Text="Здоровье" 
+                   Style="{StaticResource Queston}"
+                   Margin="0,0,0,10"/>
+                <Border Style="{StaticResource EntryFrame}">
+                    <Grid 
+                    ColumnDefinitions="4*,1*"
+                    Padding="15">
+                        <Label Text="{Binding Source={x:Reference NameEntry}, Path=Text, StringFormat='{0} посещает ветеринара для плановых осмотров.'}"
+                            Style="{StaticResource SubTitle}" 
+                            Grid.Column="0"/>
+                        <Switch x:Name="VetSwitch"
+                            OnColor="#B8573C"
+                            ThumbColor="White"
+                            Toggled="OnVetToggled" 
+                            Grid.Column="1"
+                            Scale="1.5"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!--#endregion Switch -->
             
+
             <Grid
                 Style="{StaticResource Footer }"
                 ColumnDefinitions="2*,3*"
