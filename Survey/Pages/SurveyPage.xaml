@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Survey.Pages.SurveyPage"
+             BackgroundColor="{ StaticResource MainBackground }"
+             Shell.NavBarIsVisible="False">
+    <ScrollView Orientation="Vertical">
+        <VerticalStackLayout>
+            <HorizontalStackLayout Style="{StaticResource Header }">
+                <Image Source="cat_icon.png" Style="{ StaticResource Icon}"/>
+                <Label Text="Мелки лапки" Style="{ StaticResource Heading }" />
+            </HorizontalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Кто с тобой живет?" Style="{ StaticResource Title}"/>
+                <Label Text="Давайте начнем с вашей связи с кошками." 
+                    Style="{ StaticResource SubTitle}" Margin="0,10" />
+            </VerticalStackLayout>
+            <!--#region RadioButton -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Есть ли у вас кот?" Style="{StaticResource Queston}"/>
+                <Border Style="{StaticResource Frame}"
+                        x:Name="YesBorder">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTappedCatOption" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="12" Style="{StaticResource BlockRow}">
+                        <Image Source="cat_icon.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Да у меня есть кот." Style="{StaticResource Queston}" />
+                        <RadioButton
+                             x:Name="YesOption"
+                             GroupName="catOptions"
+                             CheckedChanged="OnCatOptionChanged" />
+                    </HorizontalStackLayout>
+                </Border>
+                <Border Style="{StaticResource Frame}"
+                        x:Name="PlaningBorder">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTappedCatOption" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout 
+                        Spacing="12" 
+                        Style="{StaticResource BlockRow}"
+                        >
+                        <Image Source="house.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Планирую завести котика!" Style="{StaticResource Queston}" />
+                        <RadioButton
+                             x:Name="PlaningOption"
+                             GroupName="catOptions"
+                             CheckedChanged="OnCatOptionChanged" 
+                            />
+                    </HorizontalStackLayout>
+                </Border>
+                <Border Style="{StaticResource Frame}"
+                        x:Name="LoveBorder">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTappedCatOption" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="12" Style="{StaticResource BlockRow}">
+                        <Image Source="heart.png" Style="{StaticResource Icon}"/>
+                        <Label Text="Просто люблю котов!" Style="{StaticResource Queston}" />
+                        <RadioButton
+                             x:Name="LoveOption"
+                             GroupName="catOptions"
+                             CheckedChanged="OnCatOptionChanged" />
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+                    <!--#endregion RadioButton -->
+
+            <VerticalStackLayout>
+                <Label x:Name="HintLabel" 
+                       Style="{StaticResource Queston}" 
+                       Text="Сначала выбери вариант выше!"/>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="25">                    
+                    <Label x:Name="Count" 
+                           Text="{Binding Source={x:Reference CatStepper}, Path=Value}"
+                           Style="{StaticResource Title}"/>
+                    <Stepper x:Name="CatStepper"
+                             Minimum="0"
+                             Maximum="10"
+                             Increment="1"
+                             Value="0"
+                             ValueChanged="OnStepperValueChanged"
+                             HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+                <Label FontSize="16" 
+                       Style="{StaticResource SubTitle}" 
+                       Text="Если котиков много, дальше расскажите о самом любимом!"/>
+            
+            </VerticalStackLayout>
+            
+            <Grid
+                Style="{StaticResource Footer }"
+                ColumnDefinitions="2*,3*"
+                ColumnSpacing="10">
+                <Button Style="{ StaticResource SecondaryButton }" 
+                    Text="Заново"
+                    Clicked="GoToMain"
+                    Grid.Column="0"></Button>
+                <Button Style="{ StaticResource PrimaryButton }" 
+                    Text="Результаты"
+                    Clicked="GoToResults"
+                    Grid.Column="1"></Button>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

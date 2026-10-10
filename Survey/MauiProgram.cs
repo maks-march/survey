@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Survey.Pages;
+using Survey.Services;
 
 namespace Survey
 {
@@ -17,10 +19,13 @@ namespace Survey
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<SurveyState>();
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            Routing.RegisterRoute(PagesNames.SurveyPage.ToString(), typeof(SurveyPage));
+            Routing.RegisterRoute(PagesNames.ResultsPage.ToString(), typeof(ResultsPage));
+            Routing.RegisterRoute(PagesNames.MainPage.ToString(), typeof(MainPage));
             return builder.Build();
         }
     }

@@ -31,6 +31,7 @@
     <Color x:Key="DarkText">#302C29</Color>
     <Color x:Key="LightText">#79716A</Color>
     <Color x:Key="Button">#B8573C</Color>
+    <Color x:Key="SecondaryButton">#E7E0D7</Color>
     <Color x:Key="MainBackground">#F2EBDD</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
